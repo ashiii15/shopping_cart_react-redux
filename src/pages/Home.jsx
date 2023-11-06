@@ -1,30 +1,64 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { addCart, addWishList, setData } from "./Redux/action/productAction";
+import { Col, Row,Card,Button } from "react-bootstrap";
+import ProductDetails from "./ProductDetails";
 
 function Home() {
-  const fetchproducts = async()=>{
+  const products = useSelector((state) => state.allProducts.products);
+  console.log(products);
+  const dispatch = useDispatch();
+
+  const fetchproducts = async () => {
     // to make api call
-    const response = await axios.get("https://fakestoreapi.com/products")
-    .catch((err)=>err)
-    console.log(response.data);
-  }
-  useEffect(()=>{
-    fetchproducts()
-  })
+    const response = await axios
+      .get("https://fakestoreapi.com/products")
+      .catch((err) => err);
+    dispatch(setData(response.data));
+  };
+  useEffect(() => {
+    fetchproducts();
+  }, []);
 
   return (
-    <>
-    <div className="card mt-4 ms-4" style={{width: "18rem"}}>
-  <img src="..." className="card-img-top" alt="..."/>
-  <div className="card-body">
-    <h5 className="card-title">Card title</h5>
-    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <Link  className="btn btn-primary">Go somewhere</Link>
-  </div>
-</div>
-    </>
-  )
+    <div className="d-flex flex-row mb-3 mt-4 ms-3 col-md-4">
+       {products &&
+        products?.map((product) => {
+          const { id, description, image, title } = product;
+          return (
+            <Row key={id} className="d-flex flex-row mb-3 mt-4 ms-3 ">
+              <Col sm={3}>
+                {/* <Link to={`product/${id}`} > */}
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img
+                    width={"250px"}
+                    height={"300px"}
+                    src={image}
+                    className="card-img-top"
+                    alt="..."
+                  />
+                  <Card className="card-body">
+                    <Card.Text className="card-title">{title.slice(0,30)}</Card.Text>
+                    <p className="card-text">
+                      {description.slice(0,180)}
+                    </p>
+                    <div >
+                    <button onClick={()=>dispatch(addCart(product))} style={{marginRight:"20px"}} className="btn btn-primary">cart</button>
+                    <button onClick={()=>dispatch(addWishList(product))} className="btn btn-primary">wishlist</button>
+                    </div>
+
+                  </Card>
+                </Card>
+                {/* </Link> */}
+              </Col>
+            </Row>
+          );
+        })}
+        <ProductDetails/>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
