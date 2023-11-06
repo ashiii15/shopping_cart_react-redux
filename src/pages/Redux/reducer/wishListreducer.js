@@ -1,4 +1,4 @@
-import { ADD_WISHLIST } from "../constants/action-type";
+import { ADD_WISHLIST, DELETE_DATA } from "../constants/action-type";
 
 const initialState = {
     wishList :[]
@@ -9,6 +9,9 @@ export const wishListreducer = (state=initialState,action)=>{
             return {...state,
                 wishList:[...state.wishList,(action.payload)]
             }
+            case DELETE_DATA:
+                return {...state,
+                wishList:state.wishList.filter((item)=>item.id !== action.payload)}
             
     
         default:
