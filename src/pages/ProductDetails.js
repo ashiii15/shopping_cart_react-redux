@@ -1,9 +1,9 @@
 // import axios from 'axios'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
-import { selectData } from './Redux/action/productAction';
+import { removeData, selectData } from './Redux/action/productAction';
 
 function ProductDetails() {
     const product = useSelector((state)=>state.selectedProduct.products)
@@ -19,6 +19,9 @@ function ProductDetails() {
     useEffect(()=>{
       if(productId)
         fetchSingleProduct()
+        return(()=>{
+            dispatch(removeData())
+        })
     },[productId])
     return (product ?
         (<div className='container'>

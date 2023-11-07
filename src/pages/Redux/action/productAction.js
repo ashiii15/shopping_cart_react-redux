@@ -1,4 +1,4 @@
-import { ADD_CART, ADD_WISHLIST, DELETE_DATA, SELECT_DATA, SET_DATA, } from "../constants/action-type"
+import { ADD_CART, ADD_WISHLIST, DELETE_DATA, REMOVE_DATA, SELECT_DATA, SET_DATA, } from "../constants/action-type"
 
 export const setData = (products)=>{
     return {
@@ -28,6 +28,11 @@ export const selectData = (product)=>{
     return {
         type:SELECT_DATA,
         payload:product
+    }
+}
+export const removeData = ()=>{
+    return {
+        type:REMOVE_DATA
     }
 }
 

@@ -1,4 +1,4 @@
-import {   SELECT_DATA, SET_DATA } from "../constants/action-type";
+import {   REMOVE_DATA, SELECT_DATA, SET_DATA } from "../constants/action-type";
 
 const initialState ={
     products :[]
@@ -15,7 +15,9 @@ export const productReducer = (state=initialState,action)=>{
 export const selectDataReducer =(state={},action)=>{
     switch (action.type) {
         case SELECT_DATA:
-            return {...state,products:action.payload}    
+            return {...state,products:action.payload} 
+            case REMOVE_DATA:
+                return {}   
         default:
             return state
     }
