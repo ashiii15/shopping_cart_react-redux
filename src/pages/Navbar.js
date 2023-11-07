@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
-    const products= useSelector((state)=>state.allProducts.products)
+    // const products= useSelector((state)=>state.allProducts.products)
     const cartItems = useSelector((state)=>state.addToCart.cart)
     const whishListItems = useSelector((state)=>state.addToWishlist.wishList)
-    console.log(whishListItems);
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container px-4 px-lg-5">

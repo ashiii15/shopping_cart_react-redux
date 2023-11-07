@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import CartList from './pages/CartList';
 import WishList from './pages/WishList';
 import Navbar from './pages/Navbar';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/' element={<Home/>}></Route>
         <Route path='/cartlist' element={<CartList/>}></Route>
         <Route path='/wishlist' element={<WishList/>}></Route>
+        <Route path='/product/:productId' exact Component={ProductDetails}></Route>
 
       </Routes>
       </>
